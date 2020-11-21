@@ -175,6 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Lord\Laroute\LarouteServiceProvider::class,
+
+        // can be removed as the documantation says
+        // LaravelFCM\FCMServiceProvider::class,
+
     ],
 
     /*
