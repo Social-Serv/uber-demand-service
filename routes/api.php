@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * TODO: remove on deploy
  */
-Route::get('front-test/test-push', 'WorkTest\TestController@testPush');
+Route::post('front-test/test-push', 'WorkTest\TestController@testPush');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -25,14 +25,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('rider')->name('rider.')->group(function () {
     Route::post('find_driver', 'Frontend\RiderController@findDriver');
-    Route::post('cancel_ride/{rider_id}/{driver_id}', 'Frontend\RiderController@cancelRide');
-    Route::post('request_ride/{rider_id}/{driver_id}/{ride_temp_id?}', 'Frontend\RiderController@requestRide');
+    Route::post('cancel_ride', 'Frontend\RiderController@cancelRide');
+    Route::get('trip_data/{trip_id}', 'Frontend\RiderController@requestTripData');
+    Route::get('{rider_id}/trips', 'Frontend\RiderController@ridersTrips');
+
+    // todo ..
+    Route::prefix('rider')->name('rider')->group(function () {
+        Route::get('rider/{rider_id}', 'Frontend/MenuController@carClasses');
+    });
 });
 
 Route::prefix('menu')->name('menu.')->group(function () {
-    Route::prefix('car')->name('car.')->group(function () {
+    Route::prefix('car')->name('car')->group(function () {
         Route::get('car_classes', 'Frontend/MenuController@carClasses');
-        Route::get('car_brands', 'Frontend/MenuController@carBrands');
-        Route::get('car_capacities', 'Frontend/MenuController@carCapacities');
+    });
+});
+
+Route::prefix('services')->name('services.')->group(function () {
+    Route::prefix('back_to_client')->name('car')->group(function () {
+        Route::post('tripinfo', 'Backend/PushController@tripInfo');
+        Route::post('driver_found', 'Backend/PushController@driverFound');
     });
 });

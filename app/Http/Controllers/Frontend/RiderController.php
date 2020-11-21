@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CancelRideRequest;
 use App\Http\Requests\FindDriverRequest;
 use App\Jobs\MakeDriverSearchRequest;
 use Illuminate\Http\Request;
@@ -10,8 +11,7 @@ use Illuminate\Http\Request;
 class RiderController extends Controller
 {
     /**
-     * @param Request $request has fields:
-     * 
+     * Main app method. Used to find driver (car) by params and request the ride.
      */
     public function findDriver(FindDriverRequest $request)
     {
@@ -27,18 +27,20 @@ class RiderController extends Controller
     /**
      * Cancel already requested (or aditionally confirmed by driver) ride.
      */
-    public function cancelRide(Request $request, $riderId, $driverId)
+    public function cancelRide(CancelRideRequest $request)
     {
-        // forward reqest
+        $data = $request->validated();
+
         return response()->json([
             "message" => "cancelled"
         ]);
     }
 
-    /**
-     * Used when rider choose a ride from the list
-     */
-    public function requestRide(Request $request, $riderId, $driverId, $rideTempId = -1)
+    public function requestTripData($tripId)
+    {
+    }
+
+    public function ridersTrips($riderId)
     {
     }
 }

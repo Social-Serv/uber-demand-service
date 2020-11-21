@@ -28,11 +28,16 @@ class FindDriverRequest extends FormRequest
             'car' => 'required',
             'car.passengers_capacities' => 'required|array',
             'car.car_classes_id' => 'required|array',
-            'geo' => 'required',
-            'geo.coord.lat' => 'required',
-            'geo.coord.long' => 'required',
-            'geo.addr' => 'required',
-            'geo.addr.addr_string' => 'required',
+            'geo_from' => 'required',
+            'geo_from.coord.lat' => 'required',
+            'geo_from.coord.long' => 'required',
+            'geo_from.addr' => 'required',
+            'geo_from.addr.addr_string' => 'required',
+            'geo_to' => 'required',
+            'geo_to.coord.lat' => 'required',
+            'geo_to.coord.long' => 'required',
+            'geo_to.addr' => 'required',
+            'geo_to.addr.addr_string' => 'required',
             'request_timestamp' => 'present'
         ];
     }

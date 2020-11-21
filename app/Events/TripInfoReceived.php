@@ -10,9 +10,10 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class DriverFound implements ShouldBroadcast
+class TripInfoReceived implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
 
     public $data;
 
@@ -21,12 +22,10 @@ class DriverFound implements ShouldBroadcast
      *
      * @return void
      */
-
-    public function __construct($data)
+    public function __construct($tripInfoData)
     {
-        $this->data = $data;
+        $this->data = $tripInfoData;
     }
-
 
     public function broadcastOn()
     {
@@ -35,6 +34,6 @@ class DriverFound implements ShouldBroadcast
 
     public function broadcastAs()
     {
-        return 'driver-found-event';
+        return 'trip-received-event';
     }
 }
