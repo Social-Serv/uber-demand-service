@@ -43,4 +43,12 @@ class RiderController extends Controller
     public function ridersTrips($riderId)
     {
     }
+
+    public function getRider($riderId)
+    {
+    }
+
+    public function getDriver($driverId)
+    {
+    }
 }

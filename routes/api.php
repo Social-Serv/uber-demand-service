@@ -14,25 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/**
- * TODO: remove on deploy
- */
-Route::post('front-test/test-push', 'WorkTest\TestController@testPush');
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::prefix('rider')->name('rider.')->group(function () {
     Route::post('find_driver', 'Frontend\RiderController@findDriver');
     Route::post('cancel_ride', 'Frontend\RiderController@cancelRide');
     Route::get('trip_data/{trip_id}', 'Frontend\RiderController@requestTripData');
     Route::get('{rider_id}/trips', 'Frontend\RiderController@ridersTrips');
 
-    // todo ..
-    Route::prefix('rider')->name('rider')->group(function () {
-        Route::get('rider/{rider_id}', 'Frontend/MenuController@carClasses');
-    });
+    Route::get('{rider_id}', 'Frontend/RiderController@getRider');
+    Route::post('/', 'Frontend/RiderController@createRider');
+    Route::put('{rider_id}', 'Frontend/RiderController@updateRider');
+});
+
+Route::prefix('driver')->name('driver.')->group(function () {
+    Route::get('{id}', 'Frontend\RiderController@getDriver');
 });
 
 Route::prefix('menu')->name('menu.')->group(function () {
@@ -47,3 +41,8 @@ Route::prefix('services')->name('services.')->group(function () {
         Route::post('driver_found', 'Backend/PushController@driverFound');
     });
 });
+
+/**
+ * TODO: remove on deploy
+ */
+Route::post('front-test/test-push', 'WorkTest\TestController@testPush');
