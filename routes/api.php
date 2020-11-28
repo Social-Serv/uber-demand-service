@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('rider')->name('rider.')->group(function () {
     Route::post('find_driver', 'Frontend\RiderController@findDriver');
+
+
     Route::post('cancel_ride', 'Frontend\RiderController@cancelRide');
     Route::get('trip_data/{trip_id}', 'Frontend\RiderController@requestTripData');
     Route::get('{rider_id}/trips', 'Frontend\RiderController@ridersTrips');
@@ -38,11 +40,17 @@ Route::prefix('menu')->name('menu.')->group(function () {
 Route::prefix('services')->name('services.')->group(function () {
     Route::prefix('back_to_client')->name('car')->group(function () {
         Route::post('tripinfo', 'Backend/PushController@tripInfo');
+        Route::post('tripinfo/short', 'Backend/PushController@tripInfoShort');
+        //new
+        Route::post('trip_completed', 'Backend/PushController@tripCompleted');
+        //new
         Route::post('driver_found', 'Backend/PushController@driverFound');
+        // new
+        Route::post('trip_was_cancelled', 'Backend/PushController@tripWasCancelled');
     });
 });
 
 /**
  * TODO: remove on deploy
  */
-Route::post('front-test/test-push', 'WorkTest\TestController@testPush');
+Route::get('front-test/test-push', 'WorkTest\TestController@testPush');

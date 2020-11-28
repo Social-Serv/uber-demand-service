@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DriverFoundRequest extends FormRequest
+class TripCancelledRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,9 @@ class DriverFoundRequest extends FormRequest
     public function rules()
     {
         return [
-            'rider_id' => 'required',
-            'driver_id' => 'required',
-            'trip_id' => 'present',
-            'payload' => 'present',
+            'client_id' => 'required',
+            'trip_id' => 'required',
+            'reason' => 'present'
         ];
     }
 }

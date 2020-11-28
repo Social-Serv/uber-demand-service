@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DriverFoundRequest extends FormRequest
+class TripCompletedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class DriverFoundRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -25,9 +25,8 @@ class DriverFoundRequest extends FormRequest
     {
         return [
             'rider_id' => 'required',
-            'driver_id' => 'required',
-            'trip_id' => 'present',
-            'payload' => 'present',
+            'trip_id' => 'required',
+            'payload' => 'present'
         ];
     }
 }

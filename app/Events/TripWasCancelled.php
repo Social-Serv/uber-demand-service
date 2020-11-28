@@ -10,10 +10,9 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TripInfoReceived implements ShouldBroadcast
+class TripWasCancelled implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
 
     public $data;
 
@@ -22,18 +21,18 @@ class TripInfoReceived implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($tripInfoData)
+    public function __construct($cancellationData)
     {
-        $this->data = $tripInfoData;
+        $this->data = $cancellationData;
     }
 
     public function broadcastOn()
     {
-        return ['rider-channel-' . $this->data['rider_id']];
+        return ['rider-channel-' . $this->data['client_id']];
     }
 
     public function broadcastAs()
     {
-        return 'trip-received-event';
+        return 'trip-cancelled-event';
     }
 }

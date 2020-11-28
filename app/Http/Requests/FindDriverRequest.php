@@ -24,21 +24,21 @@ class FindDriverRequest extends FormRequest
     public function rules()
     {
         return [
-            'rider_id' => 'required',
-            'car' => 'required',
-            'car.passengers_capacities' => 'required|array',
-            'car.car_classes_id' => 'required|array',
-            'geo_from' => 'required',
-            'geo_from.coord.lat' => 'required',
-            'geo_from.coord.long' => 'required',
-            'geo_from.addr' => 'required',
-            'geo_from.addr.addr_string' => 'required',
-            'geo_to' => 'required',
-            'geo_to.coord.lat' => 'required',
-            'geo_to.coord.long' => 'required',
-            'geo_to.addr' => 'required',
-            'geo_to.addr.addr_string' => 'required',
-            'request_timestamp' => 'present'
+            'client_id' => 'required',
+            'params' => 'required',
+            'params.capacity' => 'required',
+            'params.car_types' => 'required|array',
+            'from_point' => 'required',
+            'from_point.location' => 'required',
+            'from_point.location.latitude' => 'required',
+            'from_point.location.longitude' => 'required',
+            'from_point.address.address_full' => 'required',
+            'to_point' => 'required',
+            'to_point.location' => 'required',
+            'to_point.location.latitude' => 'required',
+            'to_point.location.longitude' => 'required',
+            'to_point.address.address_full' => 'required',
+            'timestamp' => 'present'
         ];
     }
 }

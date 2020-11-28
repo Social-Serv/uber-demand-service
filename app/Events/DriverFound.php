@@ -30,7 +30,7 @@ class DriverFound implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return ['driver-found-channel-' . $this->data['rider_id']];
+        return ['rider-channel-' . $this->data['rider_id']];
     }
 
     public function broadcastAs()

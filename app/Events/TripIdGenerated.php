@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TripInfoReceived implements ShouldBroadcast
+class TripIdGenerated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -29,11 +29,11 @@ class TripInfoReceived implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return ['rider-channel-' . $this->data['rider_id']];
+        return ['rider-channel-' . $this->data['client_id']];
     }
 
     public function broadcastAs()
     {
-        return 'trip-received-event';
+        return 'tripid-event';
     }
 }
