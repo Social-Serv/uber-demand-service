@@ -39,17 +39,44 @@ class RiderController extends Controller
 
     public function requestTripData($tripId)
     {
+        $url = config('proxy.host') . config('db_service.urls.get_trip_info') . $tripId . config('db_service.proxy_param');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
+        return response($response->json())->header('Content-Type', 'application/json');
     }
 
     public function ridersTrips($riderId)
     {
+        $url = config('proxy.host') . config('db_service.urls.get_riders_trips.prefix') . $riderId . config('db_service.urls.get_riders_trips.postfix') . config('db_service.proxy_param');
+
+        $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
+        return response($response->json())->header('Content-Type', 'application/json');
     }
 
     public function getRider($riderId)
     {
+        $url = config('proxy.host') . config('db_service.urls.get_rider') . $riderId . config('db_service.proxy_param');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
+        return response($response->json())->header('Content-Type', 'application/json');
     }
 
     public function getDriver($driverId)
     {
+        $url = config('proxy.host') . config('db_service.urls.get_driver') . $driverId . config('db_service.proxy_param');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
+        return response($response->json())->header('Content-Type', 'application/json');
+    }
+
+    public function createRider(Request $request)
+    {
+        $url = config('proxy.host') . config('db_service.urls.create_rider') . config('db_service.proxy_param');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->post($url, $request->all());
+        return response($response->json())->header('Content-Type', 'application/json');
+    }
+
+    public function updateRider(Request $request, $riderId)
+    {
+        $url = config('proxy.host') . config('db_service.urls.update_rider') . $riderId . config('db_service.proxy_param');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->post($url, $request->all());
+        return response($response->json())->header('Content-Type', 'application/json');
     }
 }

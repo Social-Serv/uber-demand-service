@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('rider')->name('rider.')->group(function () {
     Route::post('find_driver', 'Frontend\RiderController@findDriver');
 
-
-    Route::post('cancel_ride', 'Frontend\RiderController@cancelRide');
+    // Route::post('cancel_ride', 'Frontend\RiderController@cancelRide');
     Route::get('trip_data/{trip_id}', 'Frontend\RiderController@requestTripData');
     Route::get('{rider_id}/trips', 'Frontend\RiderController@ridersTrips');
 

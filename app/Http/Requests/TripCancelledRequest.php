@@ -24,7 +24,7 @@ class TripCancelledRequest extends FormRequest
     public function rules()
     {
         return [
-            'client_id' => 'required',
+            'rider_id' => 'required',
             'trip_id' => 'required',
             'reason' => 'present'
         ];

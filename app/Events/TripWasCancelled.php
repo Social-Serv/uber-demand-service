@@ -28,7 +28,7 @@ class TripWasCancelled implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return ['rider-channel-' . $this->data['client_id']];
+        return ['rider-channel-' . $this->data['rider_id']];
     }
 
     public function broadcastAs()

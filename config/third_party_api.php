@@ -16,6 +16,15 @@ return [
         'proxy_param' => '?forward=storage',
         'urls' => [
             'get_driver' => '/',
+            'get_rider' => '/',
+            'get_car_classes' => '/',
+            'get_trip_info' => '/',
+            'get_riders_trips' => [
+                'prefix' => '/',
+                'postfix' => '/'
+            ],
+            'create_rider' => '/',
+            'update_rider' => '/',
         ]
     ]
 ];
