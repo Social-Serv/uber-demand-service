@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('rider')->name('rider.')->group(function () {
     Route::post('find_driver', 'Frontend\RiderController@findDriver');
 
-    // Route::post('cancel_ride', 'Frontend\RiderController@cancelRide');
     Route::get('trip_data/{trip_id}', 'Frontend\RiderController@requestTripData');
     Route::get('{rider_id}/trips', 'Frontend\RiderController@ridersTrips');
     Route::post('trip/cancel', 'Frontend\RiderController@cancelTrip');
@@ -29,11 +28,12 @@ Route::prefix('rider')->name('rider.')->group(function () {
 
 Route::prefix('driver')->name('driver.')->group(function () {
     Route::get('{id}', 'Frontend\RiderController@getDriver');
+    Route::get('location/{driver_id}', 'Frontend\RiderController@getDriverLocation');
 });
 
 Route::prefix('menu')->name('menu.')->group(function () {
     Route::prefix('car')->name('car')->group(function () {
-        Route::get('car_classes', 'Frontend/MenuController@carClasses');
+        Route::get('car_classes', 'Frontend\MenuController@carClasses');
     });
 });
 
@@ -41,16 +41,16 @@ Route::prefix('services')->name('services.')->group(function () {
     Route::prefix('back_to_client')->name('car')->group(function () {
         Route::post('tripinfo', 'Backend/PushController@tripInfo');
         Route::post('tripinfo/short', 'Backend/PushController@tripInfoShort');
-        //new
         Route::post('trip_completed', 'Backend/PushController@tripCompleted');
-        //new
         Route::post('driver_found', 'Backend/PushController@driverFound');
-        // new
         Route::post('trip_was_cancelled', 'Backend/PushController@tripWasCancelled');
+        //new
+        Route::post('trip_started', 'Backend/PushController@tripStarted');
+        Route::post('update_driver_location', 'Backend/PushController@driverLocationUpdate');
     });
 });
 
 /**
- * TODO: remove on deploy
+ * TODO: remove on production
  */
 Route::get('front-test/test-push', 'WorkTest\TestController@testPush');

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Events\DriverFound;
+use App\Events\DriverLocationUpdated;
 use App\Events\TripCompleted;
 use App\Events\TripIdGenerated;
 use App\Events\TripInfoReceived;
+use App\Events\TripStarted;
 use App\Events\TripWasCancelled;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DriverFoundRequest;
@@ -63,5 +65,24 @@ class PushController extends Controller
     public function tripWasCancelled(TripCancelledRequest $request)
     {
         event(new TripWasCancelled($request->validated()));
+    }
+
+    public function tripStarted(Request $request)
+    {
+        $data = $request->validate([
+            'client_id' => 'required'
+        ]);
+
+        event(new TripStarted($data));
+    }
+
+    public function driverLocationUpdate(Request $request)
+    {
+        $data = $request->validate([
+            'client_id' => 'required',
+            'payload' => 'required'
+        ]);
+
+        event(new DriverLocationUpdated($data));
     }
 }
