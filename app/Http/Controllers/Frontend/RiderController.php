@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CancelRideRequest;
+use App\Http\Requests\CancelTripByRiderRequest;
 use App\Http\Requests\FindDriverRequest;
 use App\Jobs\MakeDriverSearchRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
 class RiderController extends Controller
@@ -77,6 +79,20 @@ class RiderController extends Controller
     {
         $url = config('proxy.host') . config('db_service.urls.update_rider') . $riderId . config('db_service.proxy_param');
         $response = Http::withHeaders(['Accept' => 'application/json'])->post($url, $request->all());
+        return response($response->json())->header('Content-Type', 'application/json');
+    }
+
+    public function cancelTrip(CancelTripByRiderRequest $request)
+    {
+        $data = $request->validated();
+        $url = config('proxy.host') . config('trip_mngr.urls.cancel_trip') . config('db_service.proxy_param') . '&' . Arr::query(
+            [
+                'client_id' => $data['client_id'],
+                'trip_id' => $data['trip_id']
+            ]
+        );
+
+        $response = Http::withHeaders(['Accept' => 'application/json'])->post($url);
         return response($response->json())->header('Content-Type', 'application/json');
     }
 }

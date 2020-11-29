@@ -8,7 +8,8 @@ return [
         'name' => 'trip-mgr',
         'proxy_param' => '?forward=trip-mgr',
         'urls' => [
-            'req_trip' => 'client/request-trip'
+            'req_trip' => 'client/request-trip',
+            'cancel_trip' => 'client/cancel-trip'
         ]
     ],
     'db_service' => [

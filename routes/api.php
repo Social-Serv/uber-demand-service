@@ -20,6 +20,7 @@ Route::prefix('rider')->name('rider.')->group(function () {
     // Route::post('cancel_ride', 'Frontend\RiderController@cancelRide');
     Route::get('trip_data/{trip_id}', 'Frontend\RiderController@requestTripData');
     Route::get('{rider_id}/trips', 'Frontend\RiderController@ridersTrips');
+    Route::post('trip/cancel', 'Frontend\RiderController@cancelTrip');
 
     Route::get('{rider_id}', 'Frontend/RiderController@getRider');
     Route::post('/', 'Frontend/RiderController@createRider');
