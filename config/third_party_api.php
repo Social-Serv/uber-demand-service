@@ -2,11 +2,11 @@
 // https://proxy-service/client/request-trip?forward="TripManager"
 return [
     'proxy' => [
-        'host' => 'https://uber-proxy.herokuapp.com/',
+        'host' => 'https://uber-proxy.herokuapp.com/api/rider/',
     ],
     'trip_mngr' => [
         'name' => 'trip-mgr',
-        'proxy_param' => '?forward=trip-mgr',
+        'proxy_param' => '?fwd=trip-mgr',
         'urls' => [
             'req_trip' => 'client/request-trip',
             'cancel_trip' => 'client/cancel-trip'
@@ -14,7 +14,7 @@ return [
     ],
     'db_service' => [
         'name' => 'storage',
-        'proxy_param' => '?forward=storage',
+        'proxy_param' => '?fwd=storage',
         'urls' => [
             'get_driver' => 'api/front/car/',
             'get_rider' => 'api/front/rider/',
