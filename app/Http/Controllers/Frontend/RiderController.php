@@ -68,6 +68,12 @@ class RiderController extends Controller
         $response = Http::withHeaders(['Accept' => 'application/json'])->post($url, $request->all());
         return response($response->json())->header('Content-Type', 'application/json');
     }
+    public function deleteRider(Request $request, $riderId)
+    {
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.delete_rider') . $riderId . config('third_party_api.db_service.proxy_param');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->delete($url);
+        return response($response->json())->header('Content-Type', 'application/json');
+    }
 
 
     /**

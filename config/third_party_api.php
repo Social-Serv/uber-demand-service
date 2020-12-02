@@ -26,6 +26,7 @@ return [
             ],
             'create_rider' => 'api/front/rider',
             'update_rider' => 'api/front/rider/',
+            'delete_rider' => '/api/front/rider/',
         ]
     ]
 ];

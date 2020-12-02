@@ -23,6 +23,7 @@ Route::prefix('rider')->name('rider.')->group(function () {
 
     Route::get('{rider_id}', 'Frontend/RiderController@getRider');
     Route::post('/', 'Frontend/RiderController@createRider');
+    Route::delete('{rider_id}', 'Frontend/RiderController@deleteRider');
     Route::put('{rider_id}', 'Frontend/RiderController@updateRider');
 });
 
