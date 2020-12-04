@@ -30,6 +30,8 @@ Route::prefix('rider')->name('rider.')->group(function () {
 Route::prefix('driver')->name('driver.')->group(function () {
     Route::get('{id}', 'Frontend\RiderController@getDriver');
     Route::get('location/{driver_id}', 'Frontend\RiderController@getDriverLocation');
+    Route::post('/', 'Frontend\RiderController@createDriver');
+    Route::put('{id}', 'Frontend\RiderController@updateDriver');
 });
 
 Route::prefix('menu')->name('menu.')->group(function () {

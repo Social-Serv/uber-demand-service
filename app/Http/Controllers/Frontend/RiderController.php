@@ -95,9 +95,28 @@ class RiderController extends Controller
 
     public function getDriverLocation(Request $request, $driver_id)
     {
+
         // todo
         return [
             'location' => 'stub'
         ];
+
+        // $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_driver') . $driverId . config('third_party_api.db_service.proxy_param');
+        // $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
+        // return response($response->json())->header('Content-Type', 'application/json');
+    }
+
+    public function createDriver(Request $request)
+    {
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.create_diver') . config('third_party_api.db_service.proxy_param');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->post($url, $request->all());
+        return response($response->json())->header('Content-Type', 'application/json');
+    }
+
+    public function updateDriver(Request $request, $id)
+    {
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.update_driver') . $id . config('third_party_api.db_service.proxy_param');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->put($url, $request->all());
+        return response($response->json())->header('Content-Type', 'application/json');
     }
 }
