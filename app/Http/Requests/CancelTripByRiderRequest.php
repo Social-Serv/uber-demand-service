@@ -25,7 +25,7 @@ class CancelTripByRiderRequest extends FormRequest
     {
         return [
             'client_id' => 'required',
-            'trip_id' => 'reuiqred'
+            'trip_id' => 'required'
         ];
     }
 }

@@ -9,7 +9,8 @@ return [
         'proxy_param' => '?fwd=trip-mgr',
         'urls' => [
             'req_trip' => 'client/request-trip',
-            'cancel_trip' => 'client/cancel-trip'
+            'cancel_trip' => 'client/cancel-trip',
+            'get_driver_location' => 'client/get-driver-location',
         ]
     ],
     'db_service' => [

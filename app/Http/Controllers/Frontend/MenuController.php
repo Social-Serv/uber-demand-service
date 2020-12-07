@@ -13,8 +13,9 @@ class MenuController extends Controller
      */
     public function carClasses()
     {
-        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_car_classes') . config('third_party_api.db_service.proxy_param');
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_car_classes')
+            . config('third_party_api.db_service.proxy_param');
         $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 }

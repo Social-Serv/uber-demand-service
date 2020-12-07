@@ -14,6 +14,7 @@ use App\Http\Requests\DriverFoundRequest;
 use App\Http\Requests\PushTripInfoRequest;
 use App\Http\Requests\TripCancelledRequest;
 use App\Http\Requests\TripCompletedRequest;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -28,13 +29,19 @@ class PushController extends Controller
     public function tripCompleted(TripCompletedRequest $request)
     {
         $data = $request->validated();
-        event(new TripCompleted($data));
+        try {
+            event(new TripCompleted($data));
+        } catch (Exception $e) {
+            return response('error', 500);
+        }
+        return response('ok', 200);
     }
 
     public function driverFound(DriverFoundRequest $request)
     {
         $data = $request->validated();
-        $url = config('proxy.host') . config('db_service.urls.get_driver') . $data['driver_id'] . config('db_service.proxy_param');
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_driver')
+            . $data['driver_id'] . config('third_party_api.db_service.proxy_param');
         $responseDriver = Http::withHeaders(['Accept' => 'application/json'])->get($url);
 
         $driverFoundData = [
@@ -44,7 +51,13 @@ class PushController extends Controller
             'driver' => $responseDriver->json()
         ];
 
-        event(new DriverFound($driverFoundData));
+        try {
+            event(new DriverFound($driverFoundData));
+        } catch (Exception $e) {
+            return response('error', 500);
+        }
+
+        return response('ok', 200);
     }
 
     public function tripInfoShort(Request $request)
@@ -64,7 +77,13 @@ class PushController extends Controller
 
     public function tripWasCancelled(TripCancelledRequest $request)
     {
-        event(new TripWasCancelled($request->validated()));
+        try {
+            event(new TripWasCancelled($request->validated()));
+        } catch (Exception $e) {
+            return response('error', 500);
+        }
+
+        return response('ok', 200);
     }
 
     public function tripStarted(Request $request)
@@ -73,7 +92,13 @@ class PushController extends Controller
             'client_id' => 'required'
         ]);
 
-        event(new TripStarted($data));
+        try {
+            event(new TripStarted($data));
+        } catch (Exception $e) {
+            return response('error', 500);
+        }
+
+        return response('ok', 200);
     }
 
     public function driverLocationUpdate(Request $request)

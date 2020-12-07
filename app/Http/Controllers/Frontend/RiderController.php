@@ -23,43 +23,49 @@ class RiderController extends Controller
         $response = Http::withHeaders(['Accept' => 'application/json'])
             ->post($url, $data);
 
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
     public function requestTripData($tripId)
     {
-        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_trip_info') . $tripId . config('third_party_api.db_service.proxy_param');
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_trip_info')
+            . $tripId . config('third_party_api.db_service.proxy_param');
         $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
     public function ridersTrips($riderId)
     {
-        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_riders_trips.prefix') . $riderId . config('third_party_api.db_service.urls.get_riders_trips.postfix') . config('third_party_api.db_service.proxy_param');
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_riders_trips.prefix')
+            . $riderId . config('third_party_api.db_service.urls.get_riders_trips.postfix')
+            . config('third_party_api.db_service.proxy_param');
 
         $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
     public function getRider($riderId)
     {
-        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_rider') . $riderId . config('third_party_api.db_service.proxy_param');
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_rider')
+            . $riderId . config('third_party_api.db_service.proxy_param');
         $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
     public function getDriver($driverId)
     {
-        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_driver') . $driverId . config('third_party_api.db_service.proxy_param');
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_driver')
+            . $driverId . config('third_party_api.db_service.proxy_param');
         $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
     public function createRider(Request $request)
     {
-        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.create_rider') . config('third_party_api.db_service.proxy_param');
+        $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.create_rider')
+            . config('third_party_api.db_service.proxy_param');
         $response = Http::withHeaders(['Accept' => 'application/json'])->post($url, $request->all());
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
     public function updateRider(Request $request, $riderId)
@@ -82,41 +88,45 @@ class RiderController extends Controller
     public function cancelTrip(CancelTripByRiderRequest $request)
     {
         $data = $request->validated();
-        $url = config('third_party_api.proxy.host') . config('third_party_api.trip_mngr.urls.cancel_trip') . config('third_party_api.db_service.proxy_param') . '&' . Arr::query(
-            [
-                'client_id' => $data['client_id'],
-                'trip_id' => $data['trip_id']
-            ]
-        );
+        $url = config('third_party_api.proxy.host') . config('third_party_api.trip_mngr.urls.cancel_trip')
+            . config('third_party_api.trip_mngr.proxy_param') . '&' . Arr::query(
+                [
+                    'client_id' => $data['client_id'],
+                    'trip_id' => $data['trip_id']
+                ]
+            );
 
         $response = Http::withHeaders(['Accept' => 'application/json'])->post($url);
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
-    public function getDriverLocation(Request $request, $driver_id)
+    public function getDriverLocation(Request $request)
     {
+        $trip_id = $request->query('trip_id');
 
-        // todo
-        return [
-            'location' => 'stub'
-        ];
+        $url = config('third_party_api.proxy.host') . config('third_party_api.trip_mngr.urls.get_driver_location')
+            . config('third_party_api.trip_mngr.proxy_param') . '&' . Arr::query([
+                'trip_id' => $trip_id
+            ]);
 
-        // $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.get_driver') . $driverId . config('third_party_api.db_service.proxy_param');
-        // $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
-        // return response($response->json())->header('Content-Type', 'application/json');
+        $response = Http::withHeaders(['Accept' => 'application/json'])->get($url);
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
+    /**
+     * not used
+     */
     public function createDriver(Request $request)
     {
         $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.create_diver') . config('third_party_api.db_service.proxy_param');
         $response = Http::withHeaders(['Accept' => 'application/json'])->post($url, $request->all());
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 
     public function updateDriver(Request $request, $id)
     {
         $url = config('third_party_api.proxy.host') . config('third_party_api.db_service.urls.update_driver') . $id . config('third_party_api.db_service.proxy_param');
         $response = Http::withHeaders(['Accept' => 'application/json'])->put($url, $request->all());
-        return response($response->json())->header('Content-Type', 'application/json');
+        return response($response->json(), $response->status())->header('Content-Type', 'application/json');
     }
 }

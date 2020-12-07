@@ -27,7 +27,7 @@ class FindDriverRequest extends FormRequest
             'client_id' => 'required',
             'params' => 'required',
             'params.capacity' => 'required',
-            'params.car_types' => 'required|array',
+            'params.car_types' => 'required',
             'from_point' => 'required',
             'from_point.location' => 'required',
             'from_point.location.latitude' => 'required',

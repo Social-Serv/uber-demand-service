@@ -21,15 +21,15 @@ Route::prefix('rider')->name('rider.')->group(function () {
     Route::get('{rider_id}/trips', 'Frontend\RiderController@ridersTrips');
     Route::post('trip/cancel', 'Frontend\RiderController@cancelTrip');
 
-    Route::get('{rider_id}', 'Frontend/RiderController@getRider');
-    Route::post('/', 'Frontend/RiderController@createRider');
-    Route::delete('{rider_id}', 'Frontend/RiderController@deleteRider');
-    Route::put('{rider_id}', 'Frontend/RiderController@updateRider');
+    Route::get('{rider_id}', 'Frontend\RiderController@getRider');
+    Route::post('/', 'Frontend\RiderController@createRider');
+    Route::delete('{rider_id}', 'Frontend\RiderController@deleteRider');
+    Route::put('{rider_id}', 'Frontend\RiderController@updateRider');
 });
 
 Route::prefix('driver')->name('driver.')->group(function () {
+    Route::get('location', 'Frontend\RiderController@getDriverLocation');
     Route::get('{id}', 'Frontend\RiderController@getDriver');
-    Route::get('location/{driver_id}', 'Frontend\RiderController@getDriverLocation');
     Route::post('/', 'Frontend\RiderController@createDriver');
     Route::put('{id}', 'Frontend\RiderController@updateDriver');
 });
